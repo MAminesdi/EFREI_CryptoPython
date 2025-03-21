@@ -1,0 +1,24 @@
+name: Déploiement sur Alwaysdata
+
+on:
+  push:
+    branches:
+      - main  # Modifier si nécessaire
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Connexion SSH et exécution des commandes
+        uses: appleboy/ssh-action@master
+        with:
+          host: "ssh-amineefrei.alwaysdata.net"
+          username: "amineefrei"
+          key: "${{ secrets.SSH_KEY }}"
+          script: |
+            cd $HOME/www/
+            ls -la  # Commande test
